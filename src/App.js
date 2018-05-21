@@ -16,7 +16,8 @@ class App extends React.Component {
     return (
       <div>
         <h1> {this.state.text} </h1>
-       <Widget update={this.update.bind(this)} />
+       <Widget update={this.update.bind(this)} /> <br/>
+       <Button>I <Heart/> React</Button>
       </div>
     )
   }
@@ -24,6 +25,13 @@ class App extends React.Component {
 
 const Widget = (props) =>
 <input type="text" onChange={props.update} />
+
+const Button =(props) => <button>{props.children}</button>
+class Heart extends React.Component {
+  render() {
+    return <span>&hearts;</span>
+  }
+}
 
 
 
