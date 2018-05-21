@@ -6,15 +6,22 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <Title/>
+      <Title text="Yesssssss"/>
      </div>
     )
   }
 }
 
 const Title = (props) => <h1> Title: {props.text} </h1>
-Title.PropTypes = {
-  text: PropTypes.string.isRequired
+Title.propTypes = {
+  text(props, propName, component) {
+    if(!(propName in props)){
+      return new Error(`missing ${propName}`)
+    }
+    if(props[propName].length < 6) {
+      return new Error(`${propName} was too short`)
+    }
+  }
 }
 
 
