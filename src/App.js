@@ -1,34 +1,51 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+
 
 class App extends React.Component {
    constructor() {
      super();
-     this.state = {a: ''}
+     this.state = {val: 0 }
+     this.update = this.update.bind(this)
    }
-   update(e) {
+   update() {
      this.setState({
-       a: this.a.value,
-       b: this.refs.b.value})
+       val: this.state.val + 1})
+   }
+   componentWillMount(){
+     console.log('componentWillMount')
    }
   render() {
-    return (
-      <div>
-        <input
-         ref={node => this.a = node}
-         type="text"
-         onChange={this.update.bind(this)}/>{this.state.a}
-         <hr/>
-         <input
-         ref="b"
-         type="text"
-         onChange={this.update.bind(this)}/>{this.state.b}
-      </div>
-    )
+     console.log('render');
+     return <button onClick={this.update}>{this.state.val}</button>
+   }
+   componentDidMount() {
+    console.log('componentDidMount')
   }
-}
+   componentWillUnmount(){
+     console.log('ComponentWillUnmount')
+   }
+  }
+ 
+  class Wrapper extends React.Component {
+   mount(){
+    ReactDOM.render(<App/>, document.getElementById('a'))
+   }
+   unmount(){
+     ReactDOM.unmountComponentAtNode(document.getElementById('a'))
 
+   }
+   render(){
+     return (
+       <div>
+         <button onClick={this.mount.bind(this)}>Mount</button>
+         <button onClick={this.unmount.bind(this)}>UnMount</button>
+         <div id='a'></div>
+       </div>
 
+     )
+   }
+  }
 
-
-export default App;
+export default Wrapper;
